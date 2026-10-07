@@ -7,57 +7,54 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <main class="synth">
-    <header class="synth__header">
-      <p class="eyebrow">OSCILLATOR 01</p>
-      <h1>WEB SYNTHESIZER</h1>
-      <p class="status">TONE.JS / SIGNAL ACTIVE</p>
-    </header>
+  <div class="background" aria-hidden="true">
+    <div class="orb orb--purple-big"></div><div class="orb orb--purple-top"></div><div class="orb orb--purple-left"></div><div class="orb orb--purple-bottom"></div>
+    <div class="orb orb--green-left"></div><div class="orb orb--green-right"></div><div class="orb orb--green-bottom"></div>
+    <div class="orb orb--blue-big"></div><div class="orb orb--blue-small"></div><div class="orb orb--blue-right"></div>
+  </div>
 
-    <section class="panel panel--wave">
-      <p class="label">WAVE TYPE</p>
-      <div class="wave-grid" role="group" aria-label="Wave type">
-        <button class="wave-button is-active" data-wave="sine">sine</button>
-        <button class="wave-button" data-wave="square">square</button>
-        <button class="wave-button" data-wave="sawtooth">sawtooth</button>
-        <button class="wave-button" data-wave="triangle">triangle</button>
+  <main class="instrument">
+    <section class="synth-panel synth-panel--one" data-synth="1">
+      <h2>synth</h2>
+      <div class="envelope">
+        <label>attack <input data-envelope="attack" type="range" min="0.01" max="2" step="0.01" value="0.2"></label>
+        <label>decay <input data-envelope="decay" type="range" min="0.01" max="2" step="0.01" value="0.35"></label>
+        <label>sustain <input data-envelope="sustain" type="range" min="0" max="1" step="0.01" value="0.7"></label>
+        <label>release <input data-envelope="release" type="range" min="0.01" max="3" step="0.01" value="0.8"></label>
+      </div>
+      <div class="wave-buttons">
+        <button class="active" data-wave="sine">sine</button><button data-wave="pulse">pulse</button>
+        <button data-wave="sawtooth">sawtooth</button><button data-wave="triangle">triangle</button>
       </div>
     </section>
 
-    <section class="panel panel--adsr">
-      <p class="label">ENVELOPE</p>
-
-      <label>
-        <span>ATTACK</span>
-        <input id="attack" type="range" min="0.01" max="2" step="0.01" value="0.2" />
-      </label>
-      <label>
-        <span>DECAY</span>
-        <input id="decay" type="range" min="0.01" max="2" step="0.01" value="0.35" />
-      </label>
-      <label>
-        <span>SUSTAIN</span>
-        <input id="sustain" type="range" min="0" max="1" step="0.01" value="0.7" />
-      </label>
-      <label>
-        <span>RELEASE</span>
-        <input id="release" type="range" min="0.01" max="3" step="0.01" value="0.8" />
-      </label>
-    </section>
-
-    <section class="panel panel--keys">
-      <p class="label">KEYS</p>
-      <div class="keys">
-        <button data-note="C4">A</button>
-        <button data-note="D4">S</button>
-        <button data-note="E4">D</button>
-        <button data-note="F4">F</button>
-        <button data-note="G4">G</button>
-        <button data-note="A4">H</button>
-        <button data-note="B4">J</button>
-        <button data-note="C5">K</button>
+    <section class="synth-panel synth-panel--two" data-synth="2">
+      <h2>synth</h2>
+      <div class="envelope">
+        <label>attack <input data-envelope="attack" type="range" min="0.01" max="2" step="0.01" value="0.2"></label>
+        <label>decay <input data-envelope="decay" type="range" min="0.01" max="2" step="0.01" value="0.35"></label>
+        <label>sustain <input data-envelope="sustain" type="range" min="0" max="1" step="0.01" value="0.7"></label>
+        <label>release <input data-envelope="release" type="range" min="0.01" max="3" step="0.01" value="0.8"></label>
+      </div>
+      <div class="wave-buttons">
+        <button class="active" data-wave="sine">sine</button><button data-wave="pulse">pulse</button>
+        <button data-wave="sawtooth">sawtooth</button><button data-wave="triangle">triangle</button>
       </div>
     </section>
+
+    <section class="bass-panel">
+      <h2>bass</h2>
+      <div class="knobs">
+        <label class="knob-wrap">drive<input id="drive" class="knob" type="range" min="0" max="1" step="0.01" value="0.35"></label>
+        <label class="knob-wrap knob-wrap--large">cutoff<input id="cutoff" class="knob" type="range" min="100" max="5000" step="10" value="1600"></label>
+        <label class="knob-wrap">resonance<input id="resonance" class="knob" type="range" min="0" max="15" step="0.1" value="4"></label>
+      </div>
+      <label class="sub-control">sub <input id="sub" type="range" min="-30" max="0" step="1" value="-12"></label>
+    </section>
+
+    <div class="play-area">
+      <p>play: A S D F G H J K</p>
+    </div>
   </main>
 
   <script src="https://unpkg.com/tone@15.1.22/build/Tone.js"></script>
