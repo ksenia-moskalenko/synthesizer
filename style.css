@@ -99,9 +99,3 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;m
 .sub-control input{height:3.8vh}
 
 @media(max-aspect-ratio:1/1){.synth-panel{width:40vw}.synth-panel--one{left:4vw}.synth-panel--two{right:4vw}.bass-panel{left:10vw;width:80vw}.knobs{width:78%}}
-
-.layer-rack{position:absolute;z-index:4;left:2.2vw;top:39vh;width:112px;display:grid;gap:7px}
-.layer-rack__label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.45;margin:0 0 3px 10px}
-.layer-rack button{height:29px;border:1px solid rgba(255,255,255,.72);border-radius:18px;background:rgba(0,0,0,.16);color:#fff;font-size:11px;cursor:pointer;transition:.2s ease}
-.layer-rack button:not(.active){opacity:.35;text-decoration:line-through}
-.layer-rack button.active{background:rgba(255,255,255,.16);opacity:1;text-decoration:none}
