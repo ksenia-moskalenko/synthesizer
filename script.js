@@ -41,19 +41,29 @@ function initSynthPanel(panel, synth){
   })
 }
 
+function updateKnob(input){
+  const min=Number(input.min)
+  const max=Number(input.max)
+  const value=Number(input.value)
+  const percent=(value-min)/(max-min)
+  input.closest('.dial').style.setProperty('--value',percent)
+}
+
 function initBassControls(){
-  document.getElementById('drive').addEventListener('input',(event)=>{
-    bassDistortion.distortion=Number(event.target.value)
+  const drive=document.getElementById('drive')
+  const cutoff=document.getElementById('cutoff')
+  const resonance=document.getElementById('resonance')
+  const sub=document.getElementById('sub')
+
+  ;[drive,cutoff,resonance].forEach((input)=>{
+    updateKnob(input)
+    input.addEventListener('input',()=>updateKnob(input))
   })
-  document.getElementById('cutoff').addEventListener('input',(event)=>{
-    bassFilter.frequency.value=Number(event.target.value)
-  })
-  document.getElementById('resonance').addEventListener('input',(event)=>{
-    bassFilter.Q.value=Number(event.target.value)
-  })
-  document.getElementById('sub').addEventListener('input',(event)=>{
-    bassSynth.volume.value=Number(event.target.value)
-  })
+
+  drive.addEventListener('input',(event)=>{ bassDistortion.distortion=Number(event.target.value) })
+  cutoff.addEventListener('input',(event)=>{ bassFilter.frequency.value=Number(event.target.value) })
+  resonance.addEventListener('input',(event)=>{ bassFilter.Q.value=Number(event.target.value) })
+  sub.addEventListener('input',(event)=>{ bassSynth.volume.value=Number(event.target.value) })
 }
 
 function playNote(note){
@@ -62,7 +72,6 @@ function playNote(note){
   synth2.triggerAttack(note)
   bassSynth.triggerAttack(Tone.Frequency(note).transpose(-12).toNote())
 }
-
 function stopNote(note){
   synth1.triggerRelease(note)
   synth2.triggerRelease(note)
