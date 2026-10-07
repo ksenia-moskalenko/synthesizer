@@ -91,10 +91,6 @@ async function startAudio() {
   await Tone.start()
   transport.start()
   audioStarted = true
-
-  const status = document.getElementById('audioStatus')
-  status.textContent = 'audio on'
-  status.classList.add('on')
 }
 
 function initSynthPanel(panel, synth) {
