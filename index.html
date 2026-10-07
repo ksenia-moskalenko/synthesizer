@@ -11,7 +11,7 @@
     <header class="synth__header">
       <p class="eyebrow">OSCILLATOR 01</p>
       <h1>WEB SYNTHESIZER</h1>
-      <p class="status">WET 00 / SIGNAL ACTIVE</p>
+      <p class="status">TONE.JS / SIGNAL ACTIVE</p>
     </header>
 
     <section class="panel panel--wave">
@@ -31,17 +31,14 @@
         <span>ATTACK</span>
         <input id="attack" type="range" min="0.01" max="2" step="0.01" value="0.2" />
       </label>
-
       <label>
         <span>DECAY</span>
         <input id="decay" type="range" min="0.01" max="2" step="0.01" value="0.35" />
       </label>
-
       <label>
         <span>SUSTAIN</span>
         <input id="sustain" type="range" min="0" max="1" step="0.01" value="0.7" />
       </label>
-
       <label>
         <span>RELEASE</span>
         <input id="release" type="range" min="0.01" max="3" step="0.01" value="0.8" />
@@ -50,7 +47,7 @@
 
     <section class="panel panel--keys">
       <p class="label">KEYS</p>
-      <div class="keys" aria-label="Synth keyboard">
+      <div class="keys">
         <button data-note="C4">A</button>
         <button data-note="D4">S</button>
         <button data-note="E4">D</button>
@@ -63,6 +60,7 @@
     </section>
   </main>
 
+  <script src="https://unpkg.com/tone@15.1.22/build/Tone.js"></script>
   <script src="./script.js"></script>
 </body>
 </html>
