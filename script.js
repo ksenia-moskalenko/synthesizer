@@ -45,6 +45,9 @@ async function startAudio(){
 
   audioStarted = true
   updateAllControls()
+  const status=document.getElementById('audioStatus')
+  status.textContent='audio on'
+  status.classList.add('on')
 }
 
 function updateAllControls(){
@@ -100,7 +103,10 @@ function initSynthPanel(panel){
 function initPowerButtons(){
   document.querySelectorAll('[data-power]').forEach((button)=>{
     button.addEventListener('click',async()=>{
-      await startAudio()
+      if(!audioStarted){
+        await startAudio()
+        return
+      }
 
       const power = button.dataset.power
 
@@ -163,8 +169,8 @@ function initBassControls(){
   })
 }
 
-async function playNote(note){
-  await startAudio()
+function playNote(note){
+  if(!audioStarted) return
 
   if(synth1On) synth1.triggerAttack(note)
   if(synth2On) synth2.triggerAttack(note)
@@ -183,8 +189,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('[data-synth]').forEach((panel)=>initSynthPanel(panel))
   initBassControls()
   initPowerButtons()
-
-  document.addEventListener('pointerdown',startAudio,{once:true})
 
   window.addEventListener('keydown',(event)=>{
     if(event.repeat) return
