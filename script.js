@@ -1,5 +1,5 @@
 const transport = Tone.getTransport()
-transport.bpm.value = 112
+transport.bpm.value = 118
 
 const synthSettings = {
   volume: -14,
@@ -36,29 +36,66 @@ synth2.set(synthSettings)
 bassSynth.set(bassSettings)
 
 const synth1Sequence = [
-  { time: '0:0:0', noteName: 'C4', duration: '8n', velocity: 0.65 },
-  { time: '0:1:0', noteName: 'E4', duration: '8n', velocity: 0.55 },
-  { time: '0:2:0', noteName: 'G4', duration: '8n', velocity: 0.65 },
-  { time: '0:3:0', noteName: 'E4', duration: '8n', velocity: 0.55 },
-  { time: '1:0:0', noteName: 'A3', duration: '8n', velocity: 0.65 },
-  { time: '1:1:0', noteName: 'C4', duration: '8n', velocity: 0.55 },
-  { time: '1:2:0', noteName: 'E4', duration: '8n', velocity: 0.65 },
-  { time: '1:3:0', noteName: 'G4', duration: '8n', velocity: 0.55 }
+  { time: '0:0:0', noteName: 'A3', duration: '8n', velocity: 0.58 },
+  { time: '0:0:2', noteName: 'E4', duration: '8n', velocity: 0.42 },
+  { time: '0:1:0', noteName: 'C4', duration: '8n', velocity: 0.52 },
+  { time: '0:1:2', noteName: 'E4', duration: '8n', velocity: 0.46 },
+  { time: '0:2:0', noteName: 'G4', duration: '8n', velocity: 0.62 },
+  { time: '0:2:2', noteName: 'E4', duration: '16n', velocity: 0.38 },
+  { time: '0:3:0', noteName: 'C4', duration: '8n', velocity: 0.5 },
+  { time: '0:3:2', noteName: 'B3', duration: '8n', velocity: 0.42 },
+  { time: '1:0:0', noteName: 'F3', duration: '8n', velocity: 0.58 },
+  { time: '1:0:2', noteName: 'C4', duration: '8n', velocity: 0.42 },
+  { time: '1:1:0', noteName: 'A3', duration: '8n', velocity: 0.52 },
+  { time: '1:1:2', noteName: 'C4', duration: '8n', velocity: 0.46 },
+  { time: '1:2:0', noteName: 'E4', duration: '8n', velocity: 0.62 },
+  { time: '1:2:2', noteName: 'G4', duration: '16n', velocity: 0.38 },
+  { time: '1:3:0', noteName: 'A4', duration: '8n', velocity: 0.5 },
+  { time: '1:3:2', noteName: 'E4', duration: '8n', velocity: 0.42 }
 ]
 
 const synth2Sequence = [
-  { time: '0:0:0', noteName: 'C5', duration: '4n', velocity: 0.3 },
-  { time: '0:2:0', noteName: 'B4', duration: '4n', velocity: 0.3 },
-  { time: '1:0:0', noteName: 'A4', duration: '4n', velocity: 0.3 },
-  { time: '1:2:0', noteName: 'G4', duration: '4n', velocity: 0.3 }
+  { time: '0:0:0', noteName: ['A4', 'C5', 'E5'], duration: '4n', velocity: 0.22 },
+  { time: '0:2:2', noteName: ['G4', 'B4', 'E5'], duration: '8n', velocity: 0.18 },
+  { time: '0:3:2', noteName: ['G4', 'B4', 'D5'], duration: '8n', velocity: 0.2 },
+  { time: '1:0:0', noteName: ['F4', 'A4', 'C5'], duration: '4n', velocity: 0.22 },
+  { time: '1:2:2', noteName: ['E4', 'G4', 'C5'], duration: '8n', velocity: 0.18 },
+  { time: '1:3:2', noteName: ['E4', 'G4', 'B4'], duration: '8n', velocity: 0.2 }
 ]
 
 const bassSequence = [
-  { time: '0:0:0', noteName: 'C2', duration: '8n', velocity: 0.8 },
-  { time: '0:2:0', noteName: 'C2', duration: '8n', velocity: 0.7 },
-  { time: '1:0:0', noteName: 'A1', duration: '8n', velocity: 0.8 },
-  { time: '1:2:0', noteName: 'G1', duration: '8n', velocity: 0.75 }
+  { time: '0:0:0', noteName: 'A1', duration: '8n', velocity: 0.82 },
+  { time: '0:1:2', noteName: 'A1', duration: '16n', velocity: 0.62 },
+  { time: '0:2:0', noteName: 'E2', duration: '8n', velocity: 0.76 },
+  { time: '0:3:2', noteName: 'G1', duration: '16n', velocity: 0.66 },
+  { time: '1:0:0', noteName: 'F1', duration: '8n', velocity: 0.82 },
+  { time: '1:1:2', noteName: 'F1', duration: '16n', velocity: 0.62 },
+  { time: '1:2:0', noteName: 'C2', duration: '8n', velocity: 0.76 },
+  { time: '1:3:0', noteName: 'E2', duration: '16n', velocity: 0.68 },
+  { time: '1:3:2', noteName: 'G1', duration: '16n', velocity: 0.58 }
 ]
+
+const drumsSequence = [
+  { time: '0:0:0', noteName: 'C2', duration: '8n', velocity: 0.9 },
+  { time: '0:1:0', noteName: 'D2', duration: '8n', velocity: 0.72 },
+  { time: '0:1:2', noteName: 'C2', duration: '16n', velocity: 0.48 },
+  { time: '0:2:0', noteName: 'C2', duration: '8n', velocity: 0.82 },
+  { time: '0:3:0', noteName: 'D2', duration: '8n', velocity: 0.76 },
+  { time: '0:3:3', noteName: 'C2', duration: '16n', velocity: 0.5 },
+  { time: '1:0:0', noteName: 'C2', duration: '8n', velocity: 0.9 },
+  { time: '1:1:0', noteName: 'D2', duration: '8n', velocity: 0.72 },
+  { time: '1:2:0', noteName: 'C2', duration: '8n', velocity: 0.82 },
+  { time: '1:2:2', noteName: 'C2', duration: '16n', velocity: 0.48 },
+  { time: '1:3:0', noteName: 'D2', duration: '8n', velocity: 0.78 }
+]
+
+const drumsSampler = new Tone.Sampler({
+  urls: {
+    C2: 'BT7A0D0.WAV',
+    D2: 'ST0T3S7.WAV'
+  },
+  baseUrl: 'https://raw.githubusercontent.com/ZakharDay/ADC-GID-26-27/main/tutorial_5/roland_tr_909/'
+}).toDestination()
 
 const synth1Part = new Tone.Part((time, note) => {
   synth1.triggerAttackRelease(note.noteName, note.duration, time, note.velocity)
@@ -72,23 +109,31 @@ const bassPart = new Tone.Part((time, note) => {
   bassSynth.triggerAttackRelease(note.noteName, note.duration, time, note.velocity)
 }, bassSequence).start(0)
 
+const drumsPart = new Tone.Part((time, note) => {
+  drumsSampler.triggerAttackRelease(note.noteName, note.duration, time, note.velocity)
+}, drumsSequence).start(0)
+
 synth1Part.loopEnd = '2m'
 synth2Part.loopEnd = '2m'
 bassPart.loopEnd = '2m'
+drumsPart.loopEnd = '2m'
 
 synth1Part.loop = true
 synth2Part.loop = true
 bassPart.loop = true
+drumsPart.loop = true
 
 synth1Part.mute = true
 synth2Part.mute = true
 bassPart.mute = true
+drumsPart.mute = true
 
 let audioStarted = false
 
 async function startAudio() {
   if (audioStarted) return
   await Tone.start()
+  drumsPart.mute = false
   transport.start()
   audioStarted = true
 }
