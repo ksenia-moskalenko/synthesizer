@@ -30,28 +30,10 @@ const bassSettings = {
 const synth1 = new Tone.PolySynth(Tone.Synth).toDestination()
 const synth2 = new Tone.PolySynth(Tone.Synth).toDestination()
 const bassSynth = new Tone.PolySynth(Tone.Synth).toDestination()
-const synth3 = new Tone.PolySynth(Tone.Synth).toDestination()
-const bassSynth2 = new Tone.PolySynth(Tone.Synth).toDestination()
-const hatSynth = new Tone.PolySynth(Tone.Synth).toDestination()
 
 synth1.set(synthSettings)
 synth2.set(synthSettings)
 bassSynth.set(bassSettings)
-synth3.set({
-  volume: -18,
-  envelope: { attack: 0.01, decay: 0.12, sustain: 0.05, release: 1.2 },
-  oscillator: { type: 'triangle' }
-})
-bassSynth2.set({
-  volume: -17,
-  envelope: { attack: 0.02, decay: 0.18, sustain: 0.2, release: 0.35 },
-  oscillator: { type: 'square' }
-})
-hatSynth.set({
-  volume: -28,
-  envelope: { attack: 0.001, decay: 0.03, sustain: 0, release: 0.02 },
-  oscillator: { type: 'square' }
-})
 
 const synth1Sequence = [
   { time: '0:0:0', noteName: 'A3', duration: '8n', velocity: 0.58 },
@@ -93,46 +75,6 @@ const bassSequence = [
   { time: '1:3:2', noteName: 'G1', duration: '16n', velocity: 0.58 }
 ]
 
-const synth3Sequence = [
-  { time: '0:1:2', noteName: 'E5', duration: '16n', velocity: 0.28 },
-  { time: '0:3:2', noteName: 'B5', duration: '16n', velocity: 0.32 },
-  { time: '1:1:2', noteName: 'C6', duration: '16n', velocity: 0.3 },
-  { time: '1:3:2', noteName: 'G5', duration: '16n', velocity: 0.28 }
-]
-
-const bass2Sequence = [
-  { time: '0:0:2', noteName: 'E2', duration: '16n', velocity: 0.45 },
-  { time: '0:2:2', noteName: 'G2', duration: '16n', velocity: 0.5 },
-  { time: '1:0:2', noteName: 'C2', duration: '16n', velocity: 0.45 },
-  { time: '1:2:2', noteName: 'E2', duration: '16n', velocity: 0.5 }
-]
-
-const kickSequence = [
-  { time: '0:0:0', noteName: 'C2', duration: '8n', velocity: 0.9 },
-  { time: '0:2:0', noteName: 'C2', duration: '8n', velocity: 0.82 },
-  { time: '0:3:2', noteName: 'C2', duration: '16n', velocity: 0.48 },
-  { time: '1:0:0', noteName: 'C2', duration: '8n', velocity: 0.9 },
-  { time: '1:2:0', noteName: 'C2', duration: '8n', velocity: 0.82 }
-]
-
-const snareSequence = [
-  { time: '0:1:0', noteName: 'D2', duration: '8n', velocity: 0.72 },
-  { time: '0:3:0', noteName: 'D2', duration: '8n', velocity: 0.76 },
-  { time: '1:1:0', noteName: 'D2', duration: '8n', velocity: 0.72 },
-  { time: '1:3:0', noteName: 'D2', duration: '8n', velocity: 0.78 }
-]
-
-const hatSequence = [
-  { time: '0:0:2', noteName: 'C7', duration: '32n', velocity: 0.12 },
-  { time: '0:1:2', noteName: 'C7', duration: '32n', velocity: 0.1 },
-  { time: '0:2:2', noteName: 'C7', duration: '32n', velocity: 0.12 },
-  { time: '0:3:2', noteName: 'C7', duration: '32n', velocity: 0.1 },
-  { time: '1:0:2', noteName: 'C7', duration: '32n', velocity: 0.12 },
-  { time: '1:1:2', noteName: 'C7', duration: '32n', velocity: 0.1 },
-  { time: '1:2:2', noteName: 'C7', duration: '32n', velocity: 0.12 },
-  { time: '1:3:2', noteName: 'C7', duration: '32n', velocity: 0.1 }
-]
-
 const drumsSequence = [
   { time: '0:0:0', noteName: 'C2', duration: '8n', velocity: 0.9 },
   { time: '0:1:0', noteName: 'D2', duration: '8n', velocity: 0.72 },
@@ -167,58 +109,31 @@ const bassPart = new Tone.Part((time, note) => {
   bassSynth.triggerAttackRelease(note.noteName, note.duration, time, note.velocity)
 }, bassSequence).start(0)
 
-const synth3Part = new Tone.Part((time, note) => {
-  synth3.triggerAttackRelease(note.noteName, note.duration, time, note.velocity)
-}, synth3Sequence).start(0)
-
-const bass2Part = new Tone.Part((time, note) => {
-  bassSynth2.triggerAttackRelease(note.noteName, note.duration, time, note.velocity)
-}, bass2Sequence).start(0)
-
-const kickPart = new Tone.Part((time, note) => {
+const drumsPart = new Tone.Part((time, note) => {
   drumsSampler.triggerAttackRelease(note.noteName, note.duration, time, note.velocity)
-}, kickSequence).start(0)
-
-const snarePart = new Tone.Part((time, note) => {
-  drumsSampler.triggerAttackRelease(note.noteName, note.duration, time, note.velocity)
-}, snareSequence).start(0)
-
-const hatPart = new Tone.Part((time, note) => {
-  hatSynth.triggerAttackRelease(note.noteName, note.duration, time, note.velocity)
-}, hatSequence).start(0)
+}, drumsSequence).start(0)
 
 synth1Part.loopEnd = '2m'
 synth2Part.loopEnd = '2m'
 bassPart.loopEnd = '2m'
-synth3Part.loopEnd = '2m'
-bass2Part.loopEnd = '2m'
-kickPart.loopEnd = '2m'
-snarePart.loopEnd = '2m'
-hatPart.loopEnd = '2m'
+drumsPart.loopEnd = '2m'
 
 synth1Part.loop = true
 synth2Part.loop = true
 bassPart.loop = true
-synth3Part.loop = true
-bass2Part.loop = true
-kickPart.loop = true
-snarePart.loop = true
-hatPart.loop = true
+drumsPart.loop = true
 
 synth1Part.mute = true
 synth2Part.mute = true
 bassPart.mute = true
-synth3Part.mute = true
-bass2Part.mute = true
-kickPart.mute = true
-snarePart.mute = true
-hatPart.mute = true
+drumsPart.mute = true
 
 let audioStarted = false
 
 async function startAudio() {
   if (audioStarted) return
   await Tone.start()
+  drumsPart.mute = false
   transport.start()
   audioStarted = true
 }
@@ -285,30 +200,6 @@ function initPowerButtons() {
         button.classList.toggle('active', !bassPart.mute)
       }
 
-      if (power === 'synth3') {
-        synth3Part.mute = !synth3Part.mute
-        button.classList.toggle('active', !synth3Part.mute)
-      }
-
-      if (power === 'bass2') {
-        bass2Part.mute = !bass2Part.mute
-        button.classList.toggle('active', !bass2Part.mute)
-      }
-
-      if (power === 'kick') {
-        kickPart.mute = !kickPart.mute
-        button.classList.toggle('active', !kickPart.mute)
-      }
-
-      if (power === 'snare') {
-        snarePart.mute = !snarePart.mute
-        button.classList.toggle('active', !snarePart.mute)
-      }
-
-      if (power === 'hat') {
-        hatPart.mute = !hatPart.mute
-        button.classList.toggle('active', !hatPart.mute)
-      }
     })
   })
 }
