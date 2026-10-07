@@ -44,3 +44,4 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;m
 .sub-control input{height:3.8vh}
 
 @media(max-aspect-ratio:1/1){.synth-panel{width:40vw}.synth-panel--one{left:4vw}.synth-panel--two{right:4vw}.bass-panel{left:10vw;width:80vw}.knobs{width:78%}}
+\n.audio-status{position:absolute;z-index:20;left:50%;bottom:1.2vh;transform:translateX(-50%);font-size:11px;letter-spacing:.08em;opacity:.45;pointer-events:none}.audio-status.on{opacity:.8}\n
