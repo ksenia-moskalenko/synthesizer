@@ -4,21 +4,23 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:
 body{font-family:'Comfortaa',Arial,sans-serif}
 button,input{font:inherit}
 .instrument{position:relative;width:100vw;height:100vh;overflow:hidden;isolation:isolate}
-.background{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.orb{position:absolute;border-radius:50%;animation:float 9s ease-in-out infinite alternate}
+.background{position:absolute;inset:0;overflow:hidden;pointer-events:none;isolation:auto}
+.orb{position:absolute;border-radius:50%;mix-blend-mode:screen;opacity:.9;filter:saturate(1.35);will-change:transform;animation:float-a 8s ease-in-out infinite alternate}
 .orb:before,.orb:after{content:"";position:absolute;border-radius:50%;inset:9%;background:inherit;filter:brightness(1.25)}
 .orb:after{inset:20%;filter:brightness(1.55)}
-.orb--purple-big{width:min(43vw,76vh);height:min(43vw,76vh);left:-5vw;top:8vh;background:#3b0746}
-.orb--purple-top{width:9vw;height:9vw;left:22vw;top:2vh;background:#31073a;animation-delay:-3s}
-.orb--purple-left{width:8vw;height:8vw;left:-5vw;top:2vh;background:#300638}
-.orb--purple-bottom{width:10vw;height:10vw;left:4vw;top:63vh;background:#2b0633;animation-delay:-5s}
-.orb--green-left{width:16vw;height:16vw;right:27vw;top:21vh;background:#103d08;animation-delay:-2s}
-.orb--green-right{width:16vw;height:16vw;right:2vw;top:28vh;background:#174b0d;animation-delay:-4s}
-.orb--green-bottom{width:10vw;height:10vw;right:20vw;top:46vh;background:#154c0a;animation-delay:-1s}
-.orb--blue-big{width:min(34vw,55vh);height:min(34vw,55vh);left:45vw;top:57vh;background:#073b4b;animation-delay:-4s}
-.orb--blue-small{width:8vw;height:8vw;left:42vw;top:54vh;background:#07384a}
-.orb--blue-right{width:8vw;height:8vw;right:5vw;bottom:-2vh;background:#07384a;animation-delay:-3s}
-@keyframes float{from{transform:translate(-6px,-4px) scale(.98)}to{transform:translate(9px,7px) scale(1.025)}}
+.orb--purple-big{width:min(43vw,76vh);height:min(43vw,76vh);left:-5vw;top:8vh;background:#71158b}
+.orb--purple-top{width:9vw;height:9vw;left:22vw;top:2vh;background:#651178;animation:float-b 7s ease-in-out -3s infinite alternate}
+.orb--purple-left{width:8vw;height:8vw;left:-5vw;top:2vh;background:#5d0f70}
+.orb--purple-bottom{width:10vw;height:10vw;left:4vw;top:63vh;background:#571066;animation:float-c 9s ease-in-out -5s infinite alternate}
+.orb--green-left{width:16vw;height:16vw;right:27vw;top:21vh;background:#267d18;animation:float-c 7.5s ease-in-out -2s infinite alternate}
+.orb--green-right{width:16vw;height:16vw;right:2vw;top:28vh;background:#32951f;animation:float-b 8.5s ease-in-out -4s infinite alternate}
+.orb--green-bottom{width:10vw;height:10vw;right:20vw;top:46vh;background:#2b8b18;animation:float-a 6.8s ease-in-out -1s infinite alternate}
+.orb--blue-big{width:min(34vw,55vh);height:min(34vw,55vh);left:45vw;top:57vh;background:#087b9e;animation:float-b 10s ease-in-out -4s infinite alternate}
+.orb--blue-small{width:8vw;height:8vw;left:42vw;top:54vh;background:#08718f}
+.orb--blue-right{width:8vw;height:8vw;right:5vw;bottom:-2vh;background:#08718f;animation:float-c 7s ease-in-out -3s infinite alternate}
+@keyframes float-a{from{transform:translate(-3vw,-2vh) scale(.94)}to{transform:translate(9vw,8vh) scale(1.12)}}
+@keyframes float-b{from{transform:translate(5vw,-4vh) scale(1.08)}to{transform:translate(-10vw,9vh) scale(.96)}}
+@keyframes float-c{from{transform:translate(-6vw,6vh) scale(.92)}to{transform:translate(11vw,-7vh) scale(1.1)}}to{transform:translate(9px,7px) scale(1.025)}}
 
 .synth-panel{position:absolute;width:32vw;max-width:510px;z-index:2}.synth-panel--one{left:7.5vw;top:7vh}.synth-panel--two{right:6vw;top:7vh}
 .power-title{display:block;border:0;background:transparent;color:#fff;font-size:clamp(22px,2.2vw,34px);font-weight:400;margin:0 auto 2.3vh;padding:0;cursor:pointer;opacity:1;transition:opacity .2s ease}.power-title:not(.active){opacity:.35;text-decoration:line-through}.power-title:focus-visible{outline:1px solid #fff;outline-offset:6px}
@@ -44,4 +46,3 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;m
 .sub-control input{height:3.8vh}
 
 @media(max-aspect-ratio:1/1){.synth-panel{width:40vw}.synth-panel--one{left:4vw}.synth-panel--two{right:4vw}.bass-panel{left:10vw;width:80vw}.knobs{width:78%}}
-\n.audio-status{position:absolute;z-index:20;left:50%;bottom:1.2vh;transform:translateX(-50%);font-size:11px;letter-spacing:.08em;opacity:.45;pointer-events:none}.audio-status.on{opacity:.8}\n
