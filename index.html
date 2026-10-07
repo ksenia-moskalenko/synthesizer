@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synthesizer</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="synth">
+    <header class="synth__header">
+      <p class="eyebrow">OSCILLATOR 01</p>
+      <h1>WEB SYNTHESIZER</h1>
+      <p class="status">WET 00 / SIGNAL ACTIVE</p>
+    </header>
+
+    <section class="panel panel--wave">
+      <p class="label">WAVE TYPE</p>
+      <div class="wave-grid" role="group" aria-label="Wave type">
+        <button class="wave-button is-active" data-wave="sine">sine</button>
+        <button class="wave-button" data-wave="square">square</button>
+        <button class="wave-button" data-wave="sawtooth">sawtooth</button>
+        <button class="wave-button" data-wave="triangle">triangle</button>
+      </div>
+    </section>
+
+    <section class="panel panel--adsr">
+      <p class="label">ENVELOPE</p>
+
+      <label>
+        <span>ATTACK</span>
+        <input id="attack" type="range" min="0.01" max="2" step="0.01" value="0.2" />
+      </label>
+
+      <label>
+        <span>DECAY</span>
+        <input id="decay" type="range" min="0.01" max="2" step="0.01" value="0.35" />
+      </label>
+
+      <label>
+        <span>SUSTAIN</span>
+        <input id="sustain" type="range" min="0" max="1" step="0.01" value="0.7" />
+      </label>
+
+      <label>
+        <span>RELEASE</span>
+        <input id="release" type="range" min="0.01" max="3" step="0.01" value="0.8" />
+      </label>
+    </section>
+
+    <section class="panel panel--keys">
+      <p class="label">KEYS</p>
+      <div class="keys" aria-label="Synth keyboard">
+        <button data-note="C4">A</button>
+        <button data-note="D4">S</button>
+        <button data-note="E4">D</button>
+        <button data-note="F4">F</button>
+        <button data-note="G4">G</button>
+        <button data-note="A4">H</button>
+        <button data-note="B4">J</button>
+        <button data-note="C5">K</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
