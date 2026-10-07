@@ -4,8 +4,6 @@ const synthSettings = {
   oscillator: { type: 'sine' }
 }
 
-const keyMap = { a:'C4',s:'D4',d:'E4',f:'F4',g:'G4',h:'A4',j:'B4',k:'C5' }
-
 let synth1
 let synth2
 let bassSynth
@@ -201,14 +199,4 @@ document.addEventListener('DOMContentLoaded',()=>{
   initBassControls()
   initPowerButtons()
 
-  window.addEventListener('keydown',(event)=>{
-    if(event.repeat) return
-    const note = keyMap[event.key.toLowerCase()]
-    if(note) playNote(note)
-  })
-
-  window.addEventListener('keyup',(event)=>{
-    const note = keyMap[event.key.toLowerCase()]
-    if(note) stopNote(note)
-  })
 })
