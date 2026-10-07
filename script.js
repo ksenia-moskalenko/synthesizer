@@ -105,6 +105,11 @@ function initPowerButtons(){
     button.addEventListener('click',async()=>{
       if(!audioStarted){
         await startAudio()
+
+        const firstPower = button.dataset.power
+        if(firstPower === 'synth1') synth1.triggerAttackRelease('C4', '8n')
+        if(firstPower === 'synth2') synth2.triggerAttackRelease('E4', '8n')
+        if(firstPower === 'bass') bassSynth.triggerAttackRelease('C2', '8n')
         return
       }
 
@@ -120,6 +125,12 @@ function initPowerButtons(){
         bassOn
 
       button.classList.toggle('active',isOn)
+
+      if(isOn){
+        if(power === 'synth1') synth1.triggerAttackRelease('C4', '8n')
+        if(power === 'synth2') synth2.triggerAttackRelease('E4', '8n')
+        if(power === 'bass') bassSynth.triggerAttackRelease('C2', '8n')
+      }
 
       if(!isOn){
         if(power === 'synth1') synth1.releaseAll()
