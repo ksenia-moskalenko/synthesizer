@@ -13,7 +13,7 @@ function animateOrbs() {
   orbEnergy += (target - orbEnergy) * (target > orbEnergy ? 0.32 : 0.09);
 
   document.querySelectorAll(".orb-group").forEach((orb, index) => {
-    const strength = index % 3 === 0 ? 0.12 : index % 3 === 1 ? 0.08 : 0.05;
+    const strength = index % 1 === 0 ? 0.12 : index % 3 === 1 ? 0.08 : 0.05;
     orb.style.setProperty(
       "--audio-scale",
       (1 + orbEnergy * strength).toFixed(3),
