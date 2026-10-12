@@ -10,7 +10,7 @@ function animateOrbs() {
   const amplitude =
     typeof measured === "number" && Number.isFinite(measured) ? measured : 0;
   const target = Math.min(1, amplitude * 14);
-  orbEnergy += (target - orbEnergy) * (target > orbEnergy ? 0.32 : 0.09);
+  orbEnergy += (target - orbEnergy) * (target > orbEnergy ? 0.12 : 0.05);
 
   document.querySelectorAll(".orb-group").forEach((orb, index) => {
     const strength = index % 1 === 0 ? 0.12 : index % 3 === 1 ? 0.08 : 0.05;
