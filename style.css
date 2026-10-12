@@ -99,3 +99,6 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;m
 .sub-control input{height:3.8vh}
 
 @media(max-aspect-ratio:1/1){.synth-panel{width:40vw}.synth-panel--one{left:4vw}.synth-panel--two{right:4vw}.bass-panel{left:10vw;width:80vw}.knobs{width:78%}}
+
+/* Audio-reactive movement: the whole layered figure scales together. */
+.orb-group{scale:var(--audio-scale,1);transition:scale 90ms linear}
