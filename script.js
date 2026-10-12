@@ -1,4 +1,19 @@
 const transport = Tone.getTransport()
+
+// Listen to the final audio mix, including the drum sampler.
+const visualMeter = new Tone.Meter({ smoothing: 0.85 })
+Tone.getDestination().connect(visualMeter)
+
+function animateOrbs() {
+  const level = visualMeter.getValue()
+  const loudness = Number.isFinite(level) ? Math.max(0, Math.min(1, (level + 65) / 55)) : 0
+  document.querySelectorAll('.orb-group').forEach((orb, index) => {
+    const strength = index % 3 === 0 ? 0.19 : index % 3 === 1 ? 0.13 : 0.09
+    orb.style.setProperty('--audio-scale', (1 + loudness * strength).toFixed(3))
+  })
+  requestAnimationFrame(animateOrbs)
+}
+requestAnimationFrame(animateOrbs)
 transport.bpm.value = 118
 
 const synthSettings = {
