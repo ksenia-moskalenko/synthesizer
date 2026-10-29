@@ -145,3 +145,11 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;m
 .side-control input[type=range]::-webkit-slider-runnable-track{width:2px;height:100%;background:white}
 .side-control input[type=range]::-webkit-slider-thumb{appearance:none;width:64px;height:64px;margin-left:-31px;border:1px solid white;border-radius:50%;background:radial-gradient(circle,#fff 0 7px,rgba(255,255,255,.9) 8px,rgba(255,255,255,.35) 28px);box-shadow:0 0 10px #fff5}
 @media(max-width:700px){.orbit-controls{width:38vw}.synth-panel{width:26vw}.synth-panel .wave-buttons button{width:5.5vw;height:5.5vw}.side-control input[type=range]::-webkit-slider-thumb{width:40px;height:40px;margin-left:-19px}}
+
+/* Orbit sliders use the same translucent glass construction as ADSR,
+   but with a wider body and larger glowing handle. */
+.side-control{width:7vw}
+.side-control input[type=range]{width:7vw;min-width:75px;height:100%;border-radius:80px;background:rgba(255,255,255,.09);border:1px solid #fff;padding:17px 0}
+.side-control input[type=range]::-webkit-slider-thumb{width:64px;height:64px;margin-left:-31px;border:1px solid white;border-radius:50%;background:radial-gradient(circle at center,#fff 0 6px,rgba(255,255,255,.8) 7px,rgba(255,255,255,.32) 27px,rgba(255,255,255,.5) 31px);box-shadow:0 0 9px #ffffff55}
+.orbit-step:not(.is-on){fill:rgba(255,255,255,.15);filter:none}
+.orbit-step.is-on{fill:#fff;filter:drop-shadow(0 0 7px #fff)}
