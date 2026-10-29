@@ -341,30 +341,24 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-// Independent ORBIT instrument: does not modify synth 1, synth 2 or bass.
-const orbitSvg = document.getElementById('orbit-svg');
-const orbitSteps = 16;
-const orbitRadii = [200, 145, 92];
-const orbitCenter = 230;
-const svgNS = 'http://www.w3.org/2000/svg';
-const orbitState = orbitRadii.map(() => Array(orbitSteps).fill(false));
-const orbitNotes = [
-  ['A4','B4','C5','E5','G5','E5','C5','B4','F4','A4','C5','E5','G5','E5','C5','A4'],
-  ['A3','C4','E4','G4','A4','G4','E4','C4','F3','A3','C4','E4','F4','E4','C4','A3'],
-  ['A2','A2','E3','A2','G2','G2','E3','G2','F2','F2','C3','F2','E2','E2','G2','E2']
-];
-const orbitVoices = [
-  new Tone.Synth({oscillator:{type:'sine'},envelope:{attack:.005,decay:.16,sustain:.08,release:.25},volume:-14}).toDestination(),
-  new Tone.Synth({oscillator:{type:'triangle'},envelope:{attack:.01,decay:.2,sustain:.1,release:.25},volume:-16}).toDestination(),
-  new Tone.Synth({oscillator:{type:'sine'},envelope:{attack:.005,decay:.2,sustain:.05,release:.2},volume:-12}).toDestination()
-];
-let orbitTempo=118, orbitPhase=0, orbitIndex=0, orbitPlaying=false;
-let orbitVisualStep=0;
-function orbitPoint(radius,step) {
+// ORBIT edits the existing two synth parts and bass part, not separate voices.
+const orbitSvg=document.getElementById('orbit-svg');
+const orbitParts=[synth1Part,synth2Part,bassPart];
+const orbitSequences=[synth1Sequence,synth2Sequence,bassSequence];
+const orbitSteps=16,orbitRadii=[200,145,92],orbitCenter=230;
+const svgNS='http://www.w3.org/2000/svg';
+const orbitState=orbitSequences.map(seq=>Array.from({length:orbitSteps},(_,step)=>
+ seq.some(note=>orbitStepOf(note.time)===step)));
+let orbitPhase=0,orbitVisualStep=0;
+function orbitStepOf(time){
+ const [bar,beat,sixteenth]=time.split(':').map(Number);
+ return (bar*8+beat*2+Math.floor(sixteenth/2))%orbitSteps;
+}
+function orbitPoint(radius,step){
  const angle=-Math.PI/2+step*Math.PI*2/orbitSteps;
  return [orbitCenter+radius*Math.cos(angle),orbitCenter+radius*Math.sin(angle)];
 }
-function orbitElement(tag,attrs) {
+function orbitElement(tag,attrs){
  const el=document.createElementNS(svgNS,tag);
  Object.entries(attrs).forEach(([key,value])=>el.setAttribute(key,value));
  orbitSvg.appendChild(el);return el;
@@ -375,13 +369,12 @@ orbitRadii.forEach((radius,ring)=>{
  const dots=[];
  for(let step=0;step<orbitSteps;step++){
   const [cx,cy]=orbitPoint(radius,step);
-  const dot=orbitElement('circle',{cx,cy,r:ring===0?9:7,class:'orbit-step'});
+  const dot=orbitElement('circle',{cx,cy,r:ring===0?9:7,class:'orbit-step'+(orbitState[ring][step]?' is-on':'')});
   const hit=orbitElement('circle',{cx,cy,r:18,class:'orbit-hit'});
-  hit.addEventListener('click',async()=>{
-   await Tone.start();
+  hit.addEventListener('click',()=>{
    orbitState[ring][step]=!orbitState[ring][step];
    dot.classList.toggle('is-on',orbitState[ring][step]);
-   if(!orbitPlaying){orbitPlaying=true;orbitClock.start(Tone.now());}
+   rebuildOrbitPart(ring);
   });
   dots.push(dot);
  }
@@ -389,25 +382,27 @@ orbitRadii.forEach((radius,ring)=>{
 });
 const orbitHand=orbitElement('line',{x1:230,y1:230,x2:230,y2:30,class:'orbit-hand'});
 orbitElement('circle',{cx:230,cy:230,r:7,class:'orbit-center'});
-const orbitClock=new Tone.Clock(time=>{
- const step=orbitIndex%orbitSteps;
- orbitState.forEach((ringState,ring)=>{
-  const noteStep=(step+ (ring===1?orbitPhase:0))%orbitSteps;
-  if(ringState[noteStep]) orbitVoices[ring].triggerAttackRelease(orbitNotes[ring][noteStep],'16n',time,.65);
+function rebuildOrbitPart(ring){
+ const part=orbitParts[ring];
+ part.clear();
+ orbitSequences[ring].forEach(note=>{
+  const step=orbitStepOf(note.time);
+  if(!orbitState[ring][step])return;
+  const shifted=(step+(ring===1?orbitPhase:0))%orbitSteps;
+  const bar=Math.floor(shifted/8),beat=Math.floor((shifted%8)/2),sub=(shifted%2)*2;
+  part.add(bar+':'+beat+':'+sub,note);
  });
- Tone.Draw.schedule(() => { orbitVisualStep=step; },time);
- orbitIndex++;
-},orbitTempo/60*4);
+}
 document.getElementById('orbit-tempo').addEventListener('input',event=>{
- orbitTempo=Number(event.target.value);
- orbitClock.frequency.value=orbitTempo/60*4;
+ transport.bpm.rampTo(Number(event.target.value),0.12);
 });
 document.getElementById('orbit-phase').addEventListener('input',event=>{
  orbitPhase=Math.round(Number(event.target.value)/100*15);
+ rebuildOrbitPart(1);
 });
 function drawOrbit(){
- const step=orbitVisualStep;
- const [x,y]=orbitPoint(200,step);
+ const progress=transport.state==='started'?(transport.ticks%(transport.PPQ*8))/(transport.PPQ*8):0;
+ const [x,y]=orbitPoint(200,progress*orbitSteps);
  orbitHand.setAttribute('x2',x);orbitHand.setAttribute('y2',y);
  requestAnimationFrame(drawOrbit);
 }
