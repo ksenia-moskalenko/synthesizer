@@ -52,7 +52,12 @@
     </section>
 
 
-    <section class="bass-panel">
+    <div class="orbit-controls" aria-label="Orbit sequencer">
+  <svg id="orbit-svg" viewBox="0 0 460 460" role="group" aria-label="Three interactive note orbits"></svg>
+</div>
+<div class="tempo-control side-control"><input id="orbit-tempo" aria-label="Tempo" type="range" min="55" max="190" value="118" orient="vertical"></div>
+<div class="phase-control side-control"><input id="orbit-phase" aria-label="Phase" type="range" min="0" max="100" value="0" orient="vertical"></div>
+<section class="bass-panel">
       <button class="power-title active" data-power="bass">bass</button>
       <div class="knobs">
         <div class="knob-control" data-knob="drive">
