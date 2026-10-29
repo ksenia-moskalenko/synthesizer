@@ -219,7 +219,8 @@ let audioStarted = false;
 async function startAudio() {
   if (audioStarted) return;
   await Tone.start();
-  drumsPart.mute = false;
+  // Background drum beat disabled in the orbit preview.
+  drumsPart.mute = true;
   transport.start();
   audioStarted = true;
 }
