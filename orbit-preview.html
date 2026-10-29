@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synthesizer</title>
+  <link rel="stylesheet" href="./orbit-preview.css" />
+</head>
+<body>
+  <div class="background" aria-hidden="true">
+    <div class="orb-group orb-group--purple orb-group--purple-xl"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="orb-group orb-group--purple orb-group--purple-md"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="orb-group orb-group--purple orb-group--purple-sm"><span></span><span></span><span></span><span></span><span></span></div>
+
+    <div class="orb-group orb-group--green orb-group--green-lg"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="orb-group orb-group--green orb-group--green-md"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="orb-group orb-group--green orb-group--green-sm"><span></span><span></span><span></span><span></span><span></span></div>
+
+    <div class="orb-group orb-group--blue orb-group--blue-lg"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="orb-group orb-group--blue orb-group--blue-md"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="orb-group orb-group--blue orb-group--blue-sm"><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+
+  <main class="instrument">
+    <section class="synth-panel synth-panel--one" data-synth="1">
+      <button class="power-title active" data-power="synth1">synth</button>
+      <div class="envelope">
+        <label>attack <input data-envelope="attack" type="range" min="0.01" max="2" step="0.01" value="0.2"></label>
+        <label>decay <input data-envelope="decay" type="range" min="0.01" max="2" step="0.01" value="0.35"></label>
+        <label>sustain <input data-envelope="sustain" type="range" min="0" max="1" step="0.01" value="0.7"></label>
+        <label>release <input data-envelope="release" type="range" min="0.01" max="3" step="0.01" value="0.8"></label>
+      </div>
+      <div class="wave-buttons">
+        <button class="active" data-wave="sine">sine</button><button data-wave="pulse">pulse</button>
+        <button data-wave="sawtooth">sawtooth</button><button data-wave="triangle">triangle</button>
+      </div>
+    </section>
+
+    <section class="synth-panel synth-panel--two" data-synth="2">
+      <button class="power-title active" data-power="synth2">synth</button>
+      <div class="envelope">
+        <label>attack <input data-envelope="attack" type="range" min="0.01" max="2" step="0.01" value="0.2"></label>
+        <label>decay <input data-envelope="decay" type="range" min="0.01" max="2" step="0.01" value="0.35"></label>
+        <label>sustain <input data-envelope="sustain" type="range" min="0" max="1" step="0.01" value="0.7"></label>
+        <label>release <input data-envelope="release" type="range" min="0.01" max="3" step="0.01" value="0.8"></label>
+      </div>
+      <div class="wave-buttons">
+        <button class="active" data-wave="sine">sine</button><button data-wave="pulse">pulse</button>
+        <button data-wave="sawtooth">sawtooth</button><button data-wave="triangle">triangle</button>
+      </div>
+    </section>
+
+
+    <div class="orbit-controls" aria-label="Orbit sequencer">
+  <svg id="orbit-svg" viewBox="0 0 460 460" role="group" aria-label="Three interactive note orbits"></svg>
+</div>
+<div class="tempo-control side-control"><input id="orbit-tempo" aria-label="Tempo" type="range" min="55" max="190" value="118" orient="vertical"></div>
+<div class="phase-control side-control"><input id="orbit-phase" aria-label="Phase" type="range" min="0" max="100" value="0" orient="vertical"></div>
+<section class="bass-panel">
+      <button class="power-title active" data-power="bass">bass</button>
+      <div class="knobs">
+        <div class="knob-control" data-knob="drive">
+          <div class="dial" style="--value:.35">
+            <div class="dial-fill"></div><div class="dial-face"><span class="dial-mark"></span><span class="dial-dot"></span></div>
+            <input id="drive" type="range" min="0" max="1" step="0.01" value="0.35">
+          </div><span>drive</span>
+        </div>
+        <div class="knob-control knob-control--large" data-knob="cutoff">
+          <div class="dial" style="--value:.306">
+            <div class="dial-fill"></div><div class="dial-face"><span class="dial-mark"></span><span class="dial-dot"></span></div>
+            <input id="cutoff" type="range" min="100" max="5000" step="10" value="1600">
+          </div><span>cutoff</span>
+        </div>
+        <div class="knob-control" data-knob="resonance">
+          <div class="dial" style="--value:.267">
+            <div class="dial-fill"></div><div class="dial-face"><span class="dial-mark"></span><span class="dial-dot"></span></div>
+            <input id="resonance" type="range" min="0" max="15" step="0.1" value="4">
+          </div><span>resonance</span>
+        </div>
+      </div>
+      <label class="sub-control">sub <input id="sub" type="range" min="-30" max="0" step="1" value="-12"></label>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/tone@15.1.22/build/Tone.js"></script>
+  <script src="./orbit-preview.js"></script>
+</body>
+</html>
