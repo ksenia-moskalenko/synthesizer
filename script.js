@@ -25,7 +25,7 @@ requestAnimationFrame(animateOrbs);
 transport.bpm.value = 118;
 
 const synthSettings = {
-  volume: -14,
+  volume: -7,
   envelope: {
     attack: 0.2,
     decay: 0.35,
@@ -51,69 +51,45 @@ const bassSettings = {
 };
 
 const synth1 = new Tone.PolySynth(Tone.Synth).toDestination();
-const synth2 = new Tone.PolySynth(Tone.Synth).toDestination();
+// Warm, rounded second voice for the interference-inspired sound.
+const synth2Filter = new Tone.Filter(2100, "lowpass").toDestination();
+const synth2 = new Tone.PolySynth(Tone.Synth).connect(synth2Filter);
 const bassSynth = new Tone.PolySynth(Tone.Synth).toDestination();
 
 synth1.set(synthSettings);
-synth2.set(synthSettings);
-bassSynth.set(bassSettings);
+synth2.set({
+  volume: -7,
+  oscillator: { type: "triangle" },
+  envelope: { attack: 0.12, decay: 0.5, sustain: 0.35, release: 1.1 },
+});
+bassSynth.set({ ...bassSettings, oscillator: { type: "triangle" }, volume: -18, envelope: { attack: 0.015, decay: 0.25, sustain: 0.55, release: 0.55 } });
 
 const synth1Sequence = [
-  { time: "0:0:0", noteName: "A3", duration: "8n", velocity: 0.58 },
-  { time: "0:0:2", noteName: "E4", duration: "8n", velocity: 0.42 },
-  { time: "0:1:0", noteName: "C4", duration: "8n", velocity: 0.52 },
-  { time: "0:1:2", noteName: "E4", duration: "8n", velocity: 0.46 },
-  { time: "0:2:0", noteName: "G4", duration: "8n", velocity: 0.62 },
-  { time: "0:2:2", noteName: "E4", duration: "16n", velocity: 0.38 },
-  { time: "0:3:0", noteName: "C4", duration: "8n", velocity: 0.5 },
-  { time: "0:3:2", noteName: "B3", duration: "8n", velocity: 0.42 },
-  { time: "1:0:0", noteName: "F3", duration: "8n", velocity: 0.58 },
-  { time: "1:0:2", noteName: "C4", duration: "8n", velocity: 0.42 },
-  { time: "1:1:0", noteName: "A3", duration: "8n", velocity: 0.52 },
-  { time: "1:1:2", noteName: "C4", duration: "8n", velocity: 0.46 },
-  { time: "1:2:0", noteName: "E4", duration: "8n", velocity: 0.62 },
-  { time: "1:2:2", noteName: "G4", duration: "16n", velocity: 0.38 },
-  { time: "1:3:0", noteName: "A4", duration: "8n", velocity: 0.5 },
-  { time: "1:3:2", noteName: "E4", duration: "8n", velocity: 0.42 },
+  { time: "0:0:0", noteName: "A3", duration: "8n", velocity: 0.47 },
+  { time: "0:0:2", noteName: "C4", duration: "16n", velocity: 0.34 },
+  { time: "0:1:0", noteName: "E4", duration: "16n", velocity: 0.34 },
+  { time: "0:1:2", noteName: "C4", duration: "16n", velocity: 0.34 },
+  { time: "0:2:0", noteName: "G4", duration: "8n", velocity: 0.47 },
+  { time: "0:2:2", noteName: "E4", duration: "16n", velocity: 0.34 },
+  { time: "0:3:0", noteName: "C4", duration: "16n", velocity: 0.34 },
+  { time: "0:3:2", noteName: "E4", duration: "16n", velocity: 0.34 },
+  { time: "1:0:0", noteName: "F3", duration: "8n", velocity: 0.47 },
+  { time: "1:0:2", noteName: "A3", duration: "16n", velocity: 0.34 },
+  { time: "1:1:0", noteName: "C4", duration: "16n", velocity: 0.34 },
+  { time: "1:1:2", noteName: "A3", duration: "16n", velocity: 0.34 },
+  { time: "1:2:0", noteName: "E4", duration: "8n", velocity: 0.47 },
+  { time: "1:2:2", noteName: "C4", duration: "16n", velocity: 0.34 },
+  { time: "1:3:0", noteName: "A3", duration: "16n", velocity: 0.34 },
+  { time: "1:3:2", noteName: "G3", duration: "16n", velocity: 0.34 },
 ];
 
 const synth2Sequence = [
-  {
-    time: "0:0:0",
-    noteName: ["A4", "C5", "E5"],
-    duration: "4n",
-    velocity: 0.22,
-  },
-  {
-    time: "0:2:2",
-    noteName: ["G4", "B4", "E5"],
-    duration: "8n",
-    velocity: 0.18,
-  },
-  {
-    time: "0:3:2",
-    noteName: ["G4", "B4", "D5"],
-    duration: "8n",
-    velocity: 0.2,
-  },
-  {
-    time: "1:0:0",
-    noteName: ["F4", "A4", "C5"],
-    duration: "4n",
-    velocity: 0.22,
-  },
-  {
-    time: "1:2:2",
-    noteName: ["E4", "G4", "C5"],
-    duration: "8n",
-    velocity: 0.18,
-  },
-  {
-    time: "1:3:2",
-    noteName: ["E4", "G4", "B4"],
-    duration: "8n",
-    velocity: 0.2,
-  },
+  { time: "0:0:0", noteName: ["A4","C5","E5"], duration: "4n", velocity: 0.16 },
+  { time: "0:2:2", noteName: ["C5","E5","G5"], duration: "8n", velocity: 0.13 },
+  { time: "0:3:2", noteName: ["A4","C5","E5"], duration: "8n", velocity: 0.13 },
+  { time: "1:0:0", noteName: ["F4","A4","C5"], duration: "4n", velocity: 0.16 },
+  { time: "1:2:2", noteName: ["A4","C5","E5"], duration: "8n", velocity: 0.13 },
+  { time: "1:3:2", noteName: ["F4","A4","C5"], duration: "8n", velocity: 0.13 },
 ];
 
 const bassSequence = [
@@ -168,7 +144,7 @@ const synth1Part = new Tone.Part((time, note) => {
 
 const synth2Part = new Tone.Part((time, note) => {
   synth2.triggerAttackRelease(
-    note.noteName,
+    note.noteName.map((pitch) => Tone.Frequency(pitch).transpose(-5).toNote()),
     note.duration,
     time,
     note.velocity,
@@ -177,10 +153,10 @@ const synth2Part = new Tone.Part((time, note) => {
 
 const bassPart = new Tone.Part((time, note) => {
   bassSynth.triggerAttackRelease(
-    note.noteName,
+    Tone.Frequency(note.noteName).transpose(12).toNote(),
     note.duration,
     time,
-    note.velocity,
+    note.velocity * 0.7,
   );
 }, bassSequence).start(0);
 
@@ -189,7 +165,7 @@ const drumsPart = new Tone.Part((time, note) => {
     note.noteName,
     note.duration,
     time,
-    note.velocity,
+    note.noteName === "D2" ? note.velocity * 0.62 : note.velocity * 0.82,
   );
 }, drumsSequence).start(0);
 
@@ -213,7 +189,8 @@ let audioStarted = false;
 async function startAudio() {
   if (audioStarted) return;
   await Tone.start();
-  drumsPart.mute = false;
+  // Background drum beat disabled in the orbit preview.
+  drumsPart.mute = true;
   transport.start();
   audioStarted = true;
 }
@@ -339,3 +316,71 @@ document.addEventListener("DOMContentLoaded", () => {
   initPowerButtons();
   initBassControls();
 });
+
+
+// ORBIT edits the existing two synth parts and bass part, not separate voices.
+const orbitSvg=document.getElementById('orbit-svg');
+const orbitParts=[synth1Part,synth2Part,bassPart];
+const orbitSequences=[synth1Sequence,synth2Sequence,bassSequence];
+const orbitSteps=16,orbitRadii=[200,145,92],orbitCenter=230;
+const svgNS='http://www.w3.org/2000/svg';
+const orbitState=orbitSequences.map(seq=>Array.from({length:orbitSteps},(_,step)=>
+ seq.some(note=>orbitStepOf(note.time)===step)));
+let orbitPhase=0,orbitVisualStep=0;
+function orbitStepOf(time){
+ const [bar,beat,sixteenth]=time.split(':').map(Number);
+ return (bar*8+beat*2+Math.floor(sixteenth/2))%orbitSteps;
+}
+function orbitPoint(radius,step){
+ const angle=-Math.PI/2+step*Math.PI*2/orbitSteps;
+ return [orbitCenter+radius*Math.cos(angle),orbitCenter+radius*Math.sin(angle)];
+}
+function orbitElement(tag,attrs){
+ const el=document.createElementNS(svgNS,tag);
+ Object.entries(attrs).forEach(([key,value])=>el.setAttribute(key,value));
+ orbitSvg.appendChild(el);return el;
+}
+const orbitDots=[];
+orbitRadii.forEach((radius,ring)=>{
+ orbitElement('circle',{cx:230,cy:230,r:radius,class:'orbit-ring'});
+ const dots=[];
+ for(let step=0;step<orbitSteps;step++){
+  const [cx,cy]=orbitPoint(radius,step);
+  const dot=orbitElement('circle',{cx,cy,r:ring===0?9:7,class:'orbit-step'+(orbitState[ring][step]?' is-on':'')});
+  const hit=orbitElement('circle',{cx,cy,r:18,class:'orbit-hit'});
+  hit.addEventListener('click',()=>{
+   orbitState[ring][step]=!orbitState[ring][step];
+   dot.classList.toggle('is-on',orbitState[ring][step]);
+   rebuildOrbitPart(ring);
+  });
+  dots.push(dot);
+ }
+ orbitDots.push(dots);
+});
+const orbitHand=orbitElement('line',{x1:230,y1:230,x2:230,y2:30,class:'orbit-hand'});
+orbitElement('circle',{cx:230,cy:230,r:7,class:'orbit-center'});
+function rebuildOrbitPart(ring){
+ const part=orbitParts[ring];
+ part.clear();
+ orbitSequences[ring].forEach(note=>{
+  const step=orbitStepOf(note.time);
+  if(!orbitState[ring][step])return;
+  const shifted=(step+(ring===1?orbitPhase:0))%orbitSteps;
+  const bar=Math.floor(shifted/8),beat=Math.floor((shifted%8)/2),sub=(shifted%2)*2;
+  part.add(bar+':'+beat+':'+sub,note);
+ });
+}
+document.getElementById('orbit-tempo').addEventListener('input',event=>{
+ transport.bpm.rampTo(Number(event.target.value),0.12);
+});
+document.getElementById('orbit-phase').addEventListener('input',event=>{
+ orbitPhase=Math.round(Number(event.target.value)/100*15);
+ rebuildOrbitPart(1);
+});
+function drawOrbit(){
+ const progress=transport.state==='started'?(transport.ticks%(transport.PPQ*8))/(transport.PPQ*8):0;
+ const [x,y]=orbitPoint(200,progress*orbitSteps);
+ orbitHand.setAttribute('x2',x);orbitHand.setAttribute('y2',y);
+ requestAnimationFrame(drawOrbit);
+}
+requestAnimationFrame(drawOrbit);
