@@ -180,3 +180,7 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;m
 
 /* Raise both synth control groups slightly without moving the background or orbit. */
 .synth-panel{top:8.5vh}
+
+/* Symmetrical synth placement: identical offsets from screen edges. */
+.synth-panel--one{left:4.2vw;right:auto}
+.synth-panel--two{right:4.2vw;left:auto}
