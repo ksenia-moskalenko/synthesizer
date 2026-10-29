@@ -169,7 +169,7 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;m
 .synth-panel .wave-buttons button[data-wave=triangle]::after{content:"□";font-size:2.5vw}
 
 /* Larger orbit, while keeping the reference composition centered. */
-.orbit-controls{width:min(51vw,72vh);top:32%;left:50.2%}
+.orbit-controls{width:min(39vw,55vh);top:32%;left:50.2%}
 .orbit-step{pointer-events:none}
 .orbit-hit{fill:transparent;stroke:none;cursor:pointer;pointer-events:all}
 .synth-panel .wave-buttons button::after{content:""!important;display:block!important;width:44%;height:44%;background-repeat:no-repeat;background-position:center;background-size:contain;transform:none!important;position:static!important;padding:0!important;margin:0!important}
