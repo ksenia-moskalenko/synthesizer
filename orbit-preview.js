@@ -65,61 +65,31 @@ synth2.set({
 bassSynth.set({ ...bassSettings, oscillator: { type: "triangle" }, volume: -8, envelope: { attack: 0.015, decay: 0.25, sustain: 0.55, release: 0.55 } });
 
 const synth1Sequence = [
-  { time: "0:0:0", noteName: "A3", duration: "8n", velocity: 0.58 },
-  { time: "0:0:2", noteName: "E4", duration: "8n", velocity: 0.42 },
-  { time: "0:1:0", noteName: "C4", duration: "8n", velocity: 0.52 },
-  { time: "0:1:2", noteName: "E4", duration: "8n", velocity: 0.46 },
-  { time: "0:2:0", noteName: "G4", duration: "8n", velocity: 0.62 },
-  { time: "0:2:2", noteName: "E4", duration: "16n", velocity: 0.38 },
-  { time: "0:3:0", noteName: "C4", duration: "8n", velocity: 0.5 },
-  { time: "0:3:2", noteName: "B3", duration: "8n", velocity: 0.42 },
-  { time: "1:0:0", noteName: "F3", duration: "8n", velocity: 0.58 },
-  { time: "1:0:2", noteName: "C4", duration: "8n", velocity: 0.42 },
-  { time: "1:1:0", noteName: "A3", duration: "8n", velocity: 0.52 },
-  { time: "1:1:2", noteName: "C4", duration: "8n", velocity: 0.46 },
-  { time: "1:2:0", noteName: "E4", duration: "8n", velocity: 0.62 },
-  { time: "1:2:2", noteName: "G4", duration: "16n", velocity: 0.38 },
-  { time: "1:3:0", noteName: "A4", duration: "8n", velocity: 0.5 },
-  { time: "1:3:2", noteName: "E4", duration: "8n", velocity: 0.42 },
+  { time: "0:0:0", noteName: "A3", duration: "8n", velocity: 0.47 },
+  { time: "0:0:2", noteName: "C4", duration: "16n", velocity: 0.34 },
+  { time: "0:1:0", noteName: "E4", duration: "16n", velocity: 0.34 },
+  { time: "0:1:2", noteName: "C4", duration: "16n", velocity: 0.34 },
+  { time: "0:2:0", noteName: "G4", duration: "8n", velocity: 0.47 },
+  { time: "0:2:2", noteName: "E4", duration: "16n", velocity: 0.34 },
+  { time: "0:3:0", noteName: "C4", duration: "16n", velocity: 0.34 },
+  { time: "0:3:2", noteName: "E4", duration: "16n", velocity: 0.34 },
+  { time: "1:0:0", noteName: "F3", duration: "8n", velocity: 0.47 },
+  { time: "1:0:2", noteName: "A3", duration: "16n", velocity: 0.34 },
+  { time: "1:1:0", noteName: "C4", duration: "16n", velocity: 0.34 },
+  { time: "1:1:2", noteName: "A3", duration: "16n", velocity: 0.34 },
+  { time: "1:2:0", noteName: "E4", duration: "8n", velocity: 0.47 },
+  { time: "1:2:2", noteName: "C4", duration: "16n", velocity: 0.34 },
+  { time: "1:3:0", noteName: "A3", duration: "16n", velocity: 0.34 },
+  { time: "1:3:2", noteName: "G3", duration: "16n", velocity: 0.34 },
 ];
 
 const synth2Sequence = [
-  {
-    time: "0:0:0",
-    noteName: ["A4", "C5", "E5"],
-    duration: "4n",
-    velocity: 0.22,
-  },
-  {
-    time: "0:2:2",
-    noteName: ["G4", "B4", "E5"],
-    duration: "8n",
-    velocity: 0.18,
-  },
-  {
-    time: "0:3:2",
-    noteName: ["G4", "B4", "D5"],
-    duration: "8n",
-    velocity: 0.2,
-  },
-  {
-    time: "1:0:0",
-    noteName: ["F4", "A4", "C5"],
-    duration: "4n",
-    velocity: 0.22,
-  },
-  {
-    time: "1:2:2",
-    noteName: ["E4", "G4", "C5"],
-    duration: "8n",
-    velocity: 0.18,
-  },
-  {
-    time: "1:3:2",
-    noteName: ["E4", "G4", "B4"],
-    duration: "8n",
-    velocity: 0.2,
-  },
+  { time: "0:0:0", noteName: ["A4","C5","E5"], duration: "4n", velocity: 0.16 },
+  { time: "0:2:2", noteName: ["C5","E5","G5"], duration: "8n", velocity: 0.13 },
+  { time: "0:3:2", noteName: ["A4","C5","E5"], duration: "8n", velocity: 0.13 },
+  { time: "1:0:0", noteName: ["F4","A4","C5"], duration: "4n", velocity: 0.16 },
+  { time: "1:2:2", noteName: ["A4","C5","E5"], duration: "8n", velocity: 0.13 },
+  { time: "1:3:2", noteName: ["F4","A4","C5"], duration: "8n", velocity: 0.13 },
 ];
 
 const bassSequence = [
@@ -174,7 +144,7 @@ const synth1Part = new Tone.Part((time, note) => {
 
 const synth2Part = new Tone.Part((time, note) => {
   synth2.triggerAttackRelease(
-    note.noteName.map((pitch) => Tone.Frequency(pitch).transpose(-5).toNote()),
+    note.noteName.map((pitch) => Tone.Frequency(pitch).transpose(-12).toNote()),
     note.duration,
     time,
     note.velocity * 0.8,
