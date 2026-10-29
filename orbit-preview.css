@@ -153,3 +153,17 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;m
 .side-control input[type=range]::-webkit-slider-thumb{width:64px;height:64px;margin-left:-31px;border:1px solid white;border-radius:50%;background:radial-gradient(circle at center,#fff 0 6px,rgba(255,255,255,.8) 7px,rgba(255,255,255,.32) 27px,rgba(255,255,255,.5) 31px);box-shadow:0 0 9px #ffffff55}
 .orbit-step:not(.is-on){fill:rgba(255,255,255,.15);filter:none}
 .orbit-step.is-on{fill:#fff;filter:drop-shadow(0 0 7px #fff)}
+
+/* Refined proportions from the supplied mockup. */
+.orbit-controls{width:min(39vw,55vh);top:32%;left:50.2%}
+.synth-panel{top:10.5vh;width:22vw;height:49vh}
+.synth-panel--one{left:4.2vw}
+.synth-panel--two{right:2.2vw}
+.synth-panel .envelope{gap:1.4vw}
+.synth-panel .wave-buttons{margin-top:3vh;gap:.65vw}
+.synth-panel .wave-buttons button{width:4.85vw;height:4.85vw;flex:0 0 4.85vw;padding:0;display:flex;align-items:center;justify-content:center;line-height:1}
+.synth-panel .wave-buttons button::after{display:block;position:relative;top:0;left:0;transform:none;text-align:center;letter-spacing:0;padding:0}
+.synth-panel .wave-buttons button[data-wave=sine]::after{content:"∿";font-size:2.65vw}
+.synth-panel .wave-buttons button[data-wave=pulse]::after{content:"⋀⋀";font-size:1.85vw;letter-spacing:-.5vw;padding-right:.5vw}
+.synth-panel .wave-buttons button[data-wave=sawtooth]::after{content:"△";font-size:2.5vw}
+.synth-panel .wave-buttons button[data-wave=triangle]::after{content:"□";font-size:2.5vw}
