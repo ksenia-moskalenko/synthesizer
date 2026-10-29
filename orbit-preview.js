@@ -359,6 +359,7 @@ const orbitVoices = [
   new Tone.Synth({oscillator:{type:'sine'},envelope:{attack:.005,decay:.2,sustain:.05,release:.2},volume:-12}).toDestination()
 ];
 let orbitTempo=118, orbitPhase=0, orbitIndex=0, orbitPlaying=false;
+let orbitVisualStep=0;
 function orbitPoint(radius,step) {
  const angle=-Math.PI/2+step*Math.PI*2/orbitSteps;
  return [orbitCenter+radius*Math.cos(angle),orbitCenter+radius*Math.sin(angle)];
@@ -379,7 +380,7 @@ orbitRadii.forEach((radius,ring)=>{
    await Tone.start();
    orbitState[ring][step]=!orbitState[ring][step];
    dot.classList.toggle('is-on',orbitState[ring][step]);
-   if(!orbitPlaying){orbitPlaying=true;orbitClock.start();}
+   if(!orbitPlaying){orbitPlaying=true;orbitClock.start(Tone.now());}
   });
   dots.push(dot);
  }
@@ -393,6 +394,7 @@ const orbitClock=new Tone.Clock(time=>{
   const noteStep=(step+ (ring===1?orbitPhase:0))%orbitSteps;
   if(ringState[noteStep]) orbitVoices[ring].triggerAttackRelease(orbitNotes[ring][noteStep],'16n',time,.65);
  });
+ Tone.Draw.schedule(() => { orbitVisualStep=step; },time);
  orbitIndex++;
 },orbitTempo/60*4);
 document.getElementById('orbit-tempo').addEventListener('input',event=>{
@@ -403,7 +405,7 @@ document.getElementById('orbit-phase').addEventListener('input',event=>{
  orbitPhase=Math.round(Number(event.target.value)/100*15);
 });
 function drawOrbit(){
- const step=orbitIndex%orbitSteps;
+ const step=orbitVisualStep;
  const [x,y]=orbitPoint(200,step);
  orbitHand.setAttribute('x2',x);orbitHand.setAttribute('y2',y);
  requestAnimationFrame(drawOrbit);
