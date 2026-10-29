@@ -102,3 +102,89 @@ input[type=range]::-webkit-slider-thumb{appearance:none;width:24px;height:24px;m
 
 /* Audio-reactive movement: the whole layered figure scales together. */
 .orb-group{scale:var(--audio-scale,1);transform-origin:center center;transition:scale 60ms linear}
+
+
+/* Layout carefully matched to the supplied 1424 x 1024 composition. */
+.instrument{height:100vh}
+.synth-panel{position:absolute;z-index:4;top:11.5vh;width:23vw;height:49vh}
+.synth-panel--one{left:4.2vw;right:auto}
+.synth-panel--two{left:auto;right:2.2vw}
+.synth-panel .power-title{display:block;margin:0 auto 2.6vh;font-size:clamp(15px,1.45vw,22px)}
+.synth-panel .envelope{display:flex;justify-content:space-between;gap:2vw;width:100%;height:31vh;margin:0}
+.synth-panel .envelope label{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;width:3vw;min-width:30px;height:100%;font-size:0!important;gap:0}
+.synth-panel .envelope input[type=range]{writing-mode:vertical-lr;direction:rtl;appearance:none;-webkit-appearance:none;width:2.65vw;min-width:28px;height:100%;min-height:0;margin:0;padding:14px 0;border:1px solid white;border-radius:40px;background:rgba(255,255,255,.08)}
+.synth-panel .envelope input[type=range]::-webkit-slider-runnable-track{width:1px;height:100%;background:rgba(255,255,255,.9)}
+.synth-panel .envelope input[type=range]::-webkit-slider-thumb{appearance:none;width:31px;height:31px;margin:0 0 0 -15px;border-radius:50%;background:radial-gradient(circle,#fff 0 3px,rgba(255,255,255,.95) 4px,rgba(255,255,255,.35) 11px,rgba(255,255,255,.65) 15px);border:1px solid white;box-shadow:0 0 10px #fff8}
+.synth-panel .wave-buttons{display:flex;width:100%;margin:3.7vh 0 0;gap:.8vw;justify-content:space-between}
+.synth-panel .wave-buttons button{width:5vw;height:5vw;min-height:0;border-radius:50%;font-size:0!important;display:grid;place-items:center;background:rgba(255,255,255,.30);backdrop-filter:blur(8px)}
+.synth-panel .wave-buttons button.active{background:rgba(255,255,255,.5)}
+.synth-panel .wave-buttons button::after{font-family:Arial,sans-serif;font-size:2.6vw;font-weight:200;color:white;line-height:1}
+.synth-panel .wave-buttons button[data-wave=sine]::after{content:"∿"}
+.synth-panel .wave-buttons button[data-wave=pulse]::after{content:"∧∧";font-size:1.7vw;letter-spacing:-.5vw;padding-right:.5vw}
+.synth-panel .wave-buttons button[data-wave=sawtooth]::after{content:"△"}
+.synth-panel .wave-buttons button[data-wave=triangle]::after{content:"□"}
+.orbit-controls{position:absolute;z-index:5;left:50.2%;top:32%;width: min(31vw,44vh);aspect-ratio:1;transform:translate(-50%,-50%)}
+#orbit-svg{width:100%;height:100%;overflow:visible}
+.orbit-ring{fill:none;stroke:white;stroke-width:2}
+.orbit-step{cursor:pointer;fill:rgba(255,255,255,.2);stroke:rgba(255,255,255,.85);stroke-width:1.2;transition:fill .12s}
+.orbit-step.is-on{fill:white;filter:drop-shadow(0 0 6px white)}
+.orbit-step.is-current{filter:drop-shadow(0 0 7px white)}
+.orbit-hand{stroke:white;stroke-width:1.5;opacity:.9}
+.orbit-center{fill:white;filter:drop-shadow(0 0 5px white)}
+.bass-panel{position:absolute;z-index:3;left:25.8vw;top:60.5vh;width:48vw;height:37vh}
+.bass-panel .power-title{font-size:clamp(15px,1.45vw,22px);margin:0 auto 2.6vh}
+.knobs{width:100%;height:23vh;margin:0;align-items:center;justify-content:space-between}
+.knob-control>span{display:none}
+.dial{--size:min(13vw,18vh)}
+.knob-control--large .dial{--size:min(16vw,22vh)}
+.sub-control{display:block;width:100%;margin:2.5vh auto 0;font-size:0!important}
+.sub-control input{width:100%;height:3.5vh}
+.side-control{position:absolute;z-index:6;top:63%;bottom:auto;width:7vw;height:33vh;display:flex;justify-content:center;align-items:center}
+.tempo-control{left:8.7vw}.phase-control{right:7.3vw}
+.side-control input[type=range]{writing-mode:vertical-lr;direction:rtl;appearance:none;-webkit-appearance:none;width:7vw;height:100%;padding:17px 0;border:1px solid white;border-radius:60px;background:rgba(255,255,255,.09)}
+.side-control input[type=range]::-webkit-slider-runnable-track{width:2px;height:100%;background:white}
+.side-control input[type=range]::-webkit-slider-thumb{appearance:none;width:64px;height:64px;margin-left:-31px;border:1px solid white;border-radius:50%;background:radial-gradient(circle,#fff 0 7px,rgba(255,255,255,.9) 8px,rgba(255,255,255,.35) 28px);box-shadow:0 0 10px #fff5}
+@media(max-width:700px){.orbit-controls{width:38vw}.synth-panel{width:26vw}.synth-panel .wave-buttons button{width:5.5vw;height:5.5vw}.side-control input[type=range]::-webkit-slider-thumb{width:40px;height:40px;margin-left:-19px}}
+
+/* Orbit sliders use the same translucent glass construction as ADSR,
+   but with a wider body and larger glowing handle. */
+.side-control{width:7vw}
+.side-control input[type=range]{width:7vw;min-width:75px;height:100%;border-radius:80px;background:rgba(255,255,255,.09);border:1px solid #fff;padding:17px 0}
+.side-control input[type=range]::-webkit-slider-thumb{width:64px;height:64px;margin-left:-31px;border:1px solid white;border-radius:50%;background:radial-gradient(circle at center,#fff 0 6px,rgba(255,255,255,.8) 7px,rgba(255,255,255,.32) 27px,rgba(255,255,255,.5) 31px);box-shadow:0 0 9px #ffffff55}
+.orbit-step:not(.is-on){fill:rgba(255,255,255,.15);filter:none}
+.orbit-step.is-on{fill:#fff;filter:drop-shadow(0 0 7px #fff)}
+
+/* Refined proportions from the supplied mockup. */
+.orbit-controls{width:min(39vw,55vh);top:32%;left:50.2%}
+.synth-panel{top:10.5vh;width:22vw;height:49vh}
+.synth-panel--one{left:4.2vw}
+.synth-panel--two{right:2.2vw}
+.synth-panel .envelope{gap:1.4vw}
+.synth-panel .wave-buttons{margin-top:3vh;gap:.65vw}
+.synth-panel .wave-buttons button{width:4.85vw;height:4.85vw;flex:0 0 4.85vw;padding:0;display:flex;align-items:center;justify-content:center;line-height:1}
+.synth-panel .wave-buttons button::after{display:block;position:relative;top:0;left:0;transform:none;text-align:center;letter-spacing:0;padding:0}
+.synth-panel .wave-buttons button[data-wave=sine]::after{content:"∿";font-size:2.65vw}
+.synth-panel .wave-buttons button[data-wave=pulse]::after{content:"⋀⋀";font-size:1.85vw;letter-spacing:-.5vw;padding-right:.5vw}
+.synth-panel .wave-buttons button[data-wave=sawtooth]::after{content:"△";font-size:2.5vw}
+.synth-panel .wave-buttons button[data-wave=triangle]::after{content:"□";font-size:2.5vw}
+
+/* Larger orbit, while keeping the reference composition centered. */
+.orbit-controls{width:min(39vw,55vh);top:32%;left:50.2%}
+.orbit-step{pointer-events:none}
+.orbit-hit{fill:transparent;stroke:none;cursor:pointer;pointer-events:all}
+.synth-panel .wave-buttons button::after{content:""!important;display:block!important;width:44%;height:44%;background-repeat:no-repeat;background-position:center;background-size:contain;transform:none!important;position:static!important;padding:0!important;margin:0!important}
+.synth-panel .wave-buttons button[data-wave="sine"]::after{background-image:url("./assets/WaveSine.svg")}
+.synth-panel .wave-buttons button[data-wave="pulse"]::after{background-image:url("./assets/CurrencyKrw.svg")}
+.synth-panel .wave-buttons button[data-wave="sawtooth"]::after{background-image:url("./assets/Polygon%203.svg")}
+.synth-panel .wave-buttons button[data-wave="triangle"]::after{background-image:url("./assets/Rectangle%2050.svg")}
+
+/* Raise both synth control groups slightly without moving the background or orbit. */
+.synth-panel{top:8.5vh}
+
+/* Symmetrical synth placement: identical offsets from screen edges. */
+.synth-panel--one{left:4.2vw;right:auto}
+.synth-panel--two{right:4.2vw;left:auto}
+
+/* Soft luminous centers for all three bass dials, matching synth sliders. */
+.bass-panel .dial-dot{width:9px;height:9px;border:0;background:#fff;box-shadow:0 0 7px 3px rgba(255,255,255,.95),0 0 18px 9px rgba(255,255,255,.48),0 0 30px 15px rgba(255,255,255,.18);pointer-events:none}
+.bass-panel .dial-face{background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.68) 0%,rgba(255,255,255,.55) 17%,rgba(255,255,255,.48) 45%,rgba(255,255,255,.55) 100%)}
