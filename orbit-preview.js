@@ -25,7 +25,7 @@ requestAnimationFrame(animateOrbs);
 transport.bpm.value = 118;
 
 const synthSettings = {
-  volume: -14,
+  volume: -7,
   envelope: {
     attack: 0.2,
     decay: 0.35,
@@ -52,17 +52,17 @@ const bassSettings = {
 
 const synth1 = new Tone.PolySynth(Tone.Synth).toDestination();
 // Warm, rounded second voice for the interference-inspired sound.
-const synth2Filter = new Tone.Filter(1050, "lowpass").toDestination();
+const synth2Filter = new Tone.Filter(2100, "lowpass").toDestination();
 const synth2 = new Tone.PolySynth(Tone.Synth).connect(synth2Filter);
 const bassSynth = new Tone.PolySynth(Tone.Synth).toDestination();
 
 synth1.set(synthSettings);
 synth2.set({
-  volume: -18,
+  volume: -7,
   oscillator: { type: "triangle" },
   envelope: { attack: 0.12, decay: 0.5, sustain: 0.35, release: 1.1 },
 });
-bassSynth.set({ ...bassSettings, oscillator: { type: "triangle" }, volume: -8, envelope: { attack: 0.015, decay: 0.25, sustain: 0.55, release: 0.55 } });
+bassSynth.set({ ...bassSettings, oscillator: { type: "triangle" }, volume: -18, envelope: { attack: 0.015, decay: 0.25, sustain: 0.55, release: 0.55 } });
 
 const synth1Sequence = [
   { time: "0:0:0", noteName: "A3", duration: "8n", velocity: 0.47 },
@@ -144,10 +144,10 @@ const synth1Part = new Tone.Part((time, note) => {
 
 const synth2Part = new Tone.Part((time, note) => {
   synth2.triggerAttackRelease(
-    note.noteName.map((pitch) => Tone.Frequency(pitch).transpose(-12).toNote()),
+    note.noteName.map((pitch) => Tone.Frequency(pitch).transpose(-5).toNote()),
     note.duration,
     time,
-    note.velocity * 0.8,
+    note.velocity,
   );
 }, synth2Sequence).start(0);
 
@@ -156,7 +156,7 @@ const bassPart = new Tone.Part((time, note) => {
     Tone.Frequency(note.noteName).transpose(12).toNote(),
     note.duration,
     time,
-    note.velocity,
+    note.velocity * 0.7,
   );
 }, bassSequence).start(0);
 
