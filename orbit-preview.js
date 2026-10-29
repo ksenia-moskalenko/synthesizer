@@ -375,8 +375,9 @@ orbitRadii.forEach((radius,ring)=>{
  const dots=[];
  for(let step=0;step<orbitSteps;step++){
   const [cx,cy]=orbitPoint(radius,step);
-  const dot=orbitElement('circle',{cx,cy,r:ring===0?8:6,class:'orbit-step'});
-  dot.addEventListener('click',async()=>{
+  const dot=orbitElement('circle',{cx,cy,r:ring===0?9:7,class:'orbit-step'});
+  const hit=orbitElement('circle',{cx,cy,r:18,class:'orbit-hit'});
+  hit.addEventListener('click',async()=>{
    await Tone.start();
    orbitState[ring][step]=!orbitState[ring][step];
    dot.classList.toggle('is-on',orbitState[ring][step]);
