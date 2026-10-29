@@ -51,12 +51,18 @@ const bassSettings = {
 };
 
 const synth1 = new Tone.PolySynth(Tone.Synth).toDestination();
-const synth2 = new Tone.PolySynth(Tone.Synth).toDestination();
+// Warm, rounded second voice for the interference-inspired sound.
+const synth2Filter = new Tone.Filter(1050, "lowpass").toDestination();
+const synth2 = new Tone.PolySynth(Tone.Synth).connect(synth2Filter);
 const bassSynth = new Tone.PolySynth(Tone.Synth).toDestination();
 
 synth1.set(synthSettings);
-synth2.set(synthSettings);
-bassSynth.set(bassSettings);
+synth2.set({
+  volume: -18,
+  oscillator: { type: "triangle" },
+  envelope: { attack: 0.12, decay: 0.5, sustain: 0.35, release: 1.1 },
+});
+bassSynth.set({ ...bassSettings, oscillator: { type: "triangle" }, volume: -15 });
 
 const synth1Sequence = [
   { time: "0:0:0", noteName: "A3", duration: "8n", velocity: 0.58 },
@@ -168,10 +174,10 @@ const synth1Part = new Tone.Part((time, note) => {
 
 const synth2Part = new Tone.Part((time, note) => {
   synth2.triggerAttackRelease(
-    note.noteName,
+    note.noteName.map((pitch) => Tone.Frequency(pitch).transpose(-5).toNote()),
     note.duration,
     time,
-    note.velocity,
+    note.velocity * 0.8,
   );
 }, synth2Sequence).start(0);
 
@@ -189,7 +195,7 @@ const drumsPart = new Tone.Part((time, note) => {
     note.noteName,
     note.duration,
     time,
-    note.velocity,
+    note.noteName === "D2" ? note.velocity * 0.62 : note.velocity * 0.82,
   );
 }, drumsSequence).start(0);
 
