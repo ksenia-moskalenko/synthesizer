@@ -62,7 +62,7 @@ synth2.set({
   oscillator: { type: "triangle" },
   envelope: { attack: 0.12, decay: 0.5, sustain: 0.35, release: 1.1 },
 });
-bassSynth.set({ ...bassSettings, oscillator: { type: "triangle" }, volume: -15 });
+bassSynth.set({ ...bassSettings, oscillator: { type: "triangle" }, volume: -8, envelope: { attack: 0.015, decay: 0.25, sustain: 0.55, release: 0.55 } });
 
 const synth1Sequence = [
   { time: "0:0:0", noteName: "A3", duration: "8n", velocity: 0.58 },
@@ -183,7 +183,7 @@ const synth2Part = new Tone.Part((time, note) => {
 
 const bassPart = new Tone.Part((time, note) => {
   bassSynth.triggerAttackRelease(
-    note.noteName,
+    Tone.Frequency(note.noteName).transpose(12).toNote(),
     note.duration,
     time,
     note.velocity,
